@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         return;
     }
     try {
-        new EmployeePayrollData().name = name.value;
+        new EmployeePayrollData.name = name.value;
         textError.textContent = "";
     } catch (e) {
         textError.textContent = e;
@@ -22,20 +22,21 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 });
 
-// const nameRegex = RegExp("^[A-Z]{1}[a-zA-Z\\s]{2,}$");
-// const text = document.querySelector("#name");
-// const textError = document.querySelector(".text-error");
-// text.addEventListener("input", function () {
-//   if (nameRegex.test(text.value)) {
-//     textError.textContent = "";
-//   } else {
-//     textError.textContent = "Incorrect name";
-//   }
-// });
 
-// const salary = document.querySelector("#salary");
-// const output = document.querySelector(".salary-output");
-// output.textContent = salary.value;
-// salary.addEventListener("input", function () {
-//   output.textContent = salary.value;
-// });
+function save() {
+  let employeePayrollData = new EmployeePayrollData();
+  try {
+    employeePayrollData.name = document.querySelector("#name").value;
+  } catch (e) {
+    setTextValue('.text-error', e);
+    throw e;
+  }
+
+  let date = document.querySelector("#month").value + " " + document.querySelector("#day").value + ", " + document.querySelector("#year").value;
+  try {
+    employeePayrollData.startDate = new Date(date);
+  } catch (error) {
+    alert(error);
+    return;
+  }
+}
